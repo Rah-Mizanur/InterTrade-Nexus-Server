@@ -97,16 +97,17 @@ async function run() {
   });
 
 
-    app.get("/my-import", async (req, res) => {
-      const result = await importsCollection.find().toArray();
-      res.send(result);
-    });
-
     app.post("/import", async (req, res) => {
       const data = req.body;
       const result = await importsCollection.insertOne(data);
       res.send(result);
     });
+
+    app.post('/add-export', async(req,res)=>{
+      const data = req.body;
+      const result = await allProductsCollection.insertOne(data);
+      res.send(result)
+    })
 
     app.put("/import/:id", async (req, res) => {
       const { id } = req.params;
