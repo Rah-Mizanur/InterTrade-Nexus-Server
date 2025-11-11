@@ -132,9 +132,20 @@ async function run() {
       res.send(result);
     });
 
-    app.put('/my-export-update/:id', async(req,res)=>{
-      
-    })
+     app.put("/my-export-update/:id", async (req, res) => {
+      const { id } = req.params;
+      const data = req.body;
+      //   console.log(id);
+      //   console.log(data);
+      const objectId = new ObjectId(id);
+      const filter = { _id: objectId };
+      const updateData = {
+        $set: data,
+      };
+      const result = await allProductsCollection.updateOne(filter, updateData);
+
+      res.send(result);
+    });
 
     app.delete('/import-product/:id', async(req,res)=>{
       const id = req.params 
