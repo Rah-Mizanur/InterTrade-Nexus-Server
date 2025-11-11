@@ -81,6 +81,15 @@ async function run() {
       res.send(result);
     });
 
+     app.get("/my-exports", verifyFirebaseToken, async (req, res) => {
+      const email = req.query.email;
+      const result = await allProductsCollection
+        .find({ exportedBy: email })
+        .toArray();
+      res.send(result);
+    });
+
+
     app.get("/all-products/:id", verifyFirebaseToken, async (req, res) => {
       const { id } = req.params;
       const result = await allProductsCollection.findOne({
@@ -123,9 +132,21 @@ async function run() {
       res.send(result);
     });
 
+    app.put('/my-export-update/:id', async(req,res)=>{
+      
+    })
+
     app.delete('/import-product/:id', async(req,res)=>{
       const id = req.params 
       const result = await importsCollection.deleteOne({
+        _id : new ObjectId(id)
+      })
+      res.send(result)
+    })
+
+    app.delete('/my-export/:id', async(req,res)=>{
+      const id = req.params
+      const result = await allProductsCollection.deleteOne({
         _id : new ObjectId(id)
       })
       res.send(result)
