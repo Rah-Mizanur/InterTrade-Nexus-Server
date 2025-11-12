@@ -55,7 +55,8 @@ async function run() {
     await client.connect();
     const db = client.db("intertrade");
     const allProductsCollection = db.collection("allProducts");
-    const serviceCollection = db.collection("service")
+    const serviceCollection = db.collection("service");
+    const chooseUSCollection = db.collection('ChooseUS')
     const importsCollection = db.collection("import");
 
     app.get("/all-products", async (req, res) => {
@@ -69,6 +70,13 @@ async function run() {
       // console.log(result)
       res.send(result);
     });
+
+     app.get("/choose", async (req, res) => {
+      const result = await chooseUSCollection.find().toArray();
+      // console.log(result)
+      res.send(result);
+    });
+    
 
     app.get("/latest-products", async (req, res) => {
       const result = await allProductsCollection
