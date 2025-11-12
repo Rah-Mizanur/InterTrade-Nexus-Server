@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config()
 const app = express();
 const port = 3000;
 
@@ -12,7 +13,7 @@ app.use(express.json());
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri =
-  "mongodb+srv://interTrade:he0vpa7bOKLMDTzP@cluster0.o2qxabl.mongodb.net/?appName=Cluster0";
+  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.o2qxabl.mongodb.net/?appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -116,7 +117,6 @@ async function run() {
      app.get('/all-product/:id',verifyFirebaseToken, async (req, res) => {
       const id = req.params.id;
       const result = await allProductsCollection.findOne({ _id: new ObjectId(id) });
-
       res.send(result);
   });
 
