@@ -55,10 +55,17 @@ async function run() {
     await client.connect();
     const db = client.db("intertrade");
     const allProductsCollection = db.collection("allProducts");
+    const serviceCollection = db.collection("service")
     const importsCollection = db.collection("import");
 
     app.get("/all-products", async (req, res) => {
       const result = await allProductsCollection.find().toArray();
+      // console.log(result)
+      res.send(result);
+    });
+
+     app.get("/service", async (req, res) => {
+      const result = await serviceCollection.find().toArray();
       // console.log(result)
       res.send(result);
     });
