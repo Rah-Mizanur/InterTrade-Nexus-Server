@@ -83,7 +83,7 @@ async function run() {
       const result = await allProductsCollection
         .find()
         .sort({createdAt:-1})
-        .limit(6)
+        .limit(3)
         .toArray();
       // console.log(result);
       res.send(result);
